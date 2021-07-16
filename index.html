@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>viewport-js</title>
+
+    <style>
+      * {
+        /* outline: 1px solid red; */
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
+      .layout {
+        width: 100%;
+        height: calc(100vh * 4);
+        position: relative;
+      }
+
+      .layout section {
+        width: 100%;
+        height: 100vh;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: #fff;
+        font-size: 100px;
+        font-weight: 600;
+        transition: all 0.6s ease-in-out;
+
+        z-index: 0;
+      }
+
+      .layout .s1 {
+        background-color: #4d2536;
+        transform: translateY(0);
+        z-index: 4;
+      }
+
+      .layout .s2 {
+        background-color: #02486b;
+        transform: translateY(100vh);
+        z-index: 3;
+      }
+
+      .layout .s3 {
+        background-color: #d0da3b;
+        transform: translateY(100vh);
+        z-index: 2;
+      }
+
+      .layout .s4 {
+        background-color: #677f8b;
+        transform: translateY(100vh);
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <section class="s1">1</section>
+      <section class="s2">2</section>
+      <section class="s3">3</section>
+      <section class="s4">4</section>
+    </div>
+
+    <script>
+      const TIME_OUT = 600
+      const body = document.querySelector('body')
+      let flagStar = true
+      let initialScroll = window.scrollY
+      let count = 1
+      let main = null
+      let next = null
+
+      console.log('PANEL', count)
+
+      window.onscroll = () => {
+        if (flagStar) {
+          const scrollDown = this.scrollY > initialScroll
+
+          if (scrollDown && count < 4) {
+            body.style.overflow = 'hidden' // se bloquea el scroll
+            main = document.querySelector(`section.s${count}`)
+            next = document.querySelector(`section.s${count + 1}`)
+
+            main.style.transform = `translateY(-100vh)`
+            next.style.transform = `translateY(0)`
+
+            count++
+          } else if (!scrollDown && count > 1) {
+            body.style.overflow = 'hidden' // se bloquea el scroll
+            main = document.querySelector(`section.s${count - 1}`)
+            next = document.querySelector(`section.s${count}`)
+
+            main.style.transform = `translateY(0)`
+            next.style.transform = `translateY(100vh)`
+
+            count--
+          }
+
+          console.log('PANEL', count)
+
+          setTimeout(() => {
+            initialScroll = this.scrollY
+            flagStar = true
+            body.style.overflow = 'scroll' // se desbloquea el scroll
+          }, TIME_OUT)
+
+          flagStar = false
+        }
+      }
+    </script>
+  </body>
+</html>
