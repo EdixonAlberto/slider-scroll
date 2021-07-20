@@ -15,13 +15,15 @@
   }
 }
 
+html {
+  scrollbar-width: none;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   overflow-x: hidden;
-
-  scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
@@ -56,14 +58,15 @@ body::-webkit-scrollbar {
 .layout .section-stick .active {
   width: 13px;
   height: 62px;
+
+  border: none;
+  border-radius: 9px;
 }
 
 .layout .section-stick .stick {
   position: relative;
 
   background-color: rgba(255, 255, 255, 0.4);
-  border: none;
-  border-radius: 9px;
   transition: all var(--time-animation) ease-in-out;
 }
 
@@ -71,9 +74,6 @@ body::-webkit-scrollbar {
   position: absolute;
 
   background-color: var(--color-white);
-  border: none;
-  border-radius: 9px;
-
   box-shadow: 0px 0px 12px 1px var(--color-white);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
