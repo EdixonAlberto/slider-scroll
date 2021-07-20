@@ -1,147 +1,101 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>viewport-js</title>
+    <title>Slider-Scroll</title>
 
-    <style>
-      * {
-        /* outline: 1px solid red; */
-      }
-
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-      }
-
-      body::-webkit-scrollbar {
-        display: none;
-      }
-
-      .layout {
-        width: 100%;
-        height: calc(100vh * 4);
-        position: relative;
-      }
-
-      .layout section {
-        width: 100%;
-        height: 100vh;
-
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        color: #fff;
-        font-size: 100px;
-        font-weight: 600;
-        transition: all 0.6s ease-in-out;
-
-        z-index: 0;
-      }
-
-      .layout .s1 {
-        background-color: #4d2536;
-        transform: translateY(0);
-        z-index: 4;
-      }
-
-      .layout .s2 {
-        background-color: #02486b;
-        transform: translateY(100vh);
-        z-index: 3;
-      }
-
-      .layout .s3 {
-        background-color: #d0da3b;
-        transform: translateY(100vh);
-        z-index: 2;
-      }
-
-      .layout .s4 {
-        background-color: #677f8b;
-        transform: translateY(100vh);
-        z-index: 1;
-      }
-
-      #author {
-        margin: auto;
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-
-        text-align: center;
-        color: #fff;
-        font-size: 25px;
-        z-index: 10;
-      }
-    </style>
+    <link rel="stylesheet" href="main.css" />
   </head>
   <body>
     <div class="layout">
-      <section class="s1">1</section>
-      <section class="s2">2</section>
-      <section class="s3">3</section>
-      <section class="s4">4</section>
+      <div class="section-stick">
+        <div class="stick active"></div>
+      </div>
 
-      <a id="author" href="https://github.com/EdixonAlberto">Created by Edixon</a>
+      <section class="s1">
+        <div class="home">
+          <span>Slider Scroll</span>
+          <!-- prettier-ignore -->
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M5 6l5 5l5-5l2 1l-7 7l-7-7z" fill="#fff"/><rect x="0" y="0" width="20" height="20" fill="rgba(0, 0, 0, 0)" /></svg>
+        </div>
+      </section>
+      <section class="s2">Each slide is displayed with a scroll</section>
+      <section class="s3">To highlight information</section>
+      <section class="s4">To improve user experience</section>
+
+      <a id="author" href="https://github.com/EdixonAlberto">
+        <!-- prettier-ignore -->
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path class="icon" d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5C64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9c26.4 39.1 77.9 32.5 104 26c5.7-23.5 17.9-44.5 34.7-60.8c-140.6-25.2-199.2-111-199.2-213c0-49.5 16.3-95 48.3-131.7c-20.4-60.5 1.9-112.3 4.9-120c58.1-5.2 118.5 41.6 123.2 45.3c33-8.9 70.7-13.6 112.9-13.6c42.4 0 80.2 4.9 113.5 13.9c11.3-8.6 67.3-48.8 121.3-43.9c2.9 7.7 24.7 58.3 5.5 118c32.4 36.8 48.9 82.7 48.9 132.3c0 102.2-59 188.1-200 212.9a127.5 127.5 0 0 1 38.1 91v112.5c.8 9 0 17.9 15 17.9c177.1-59.7 304.6-227 304.6-424.1c0-247.2-200.4-447.3-447.5-447.3z" fill="#fff" /><rect x="0" y="0" width="1024" height="1024" fill="rgba(0, 0, 0, 0)" /></svg>
+        <span>Created by Edixon</span>
+      </a>
     </div>
 
     <script>
-      const TIME_OUT = 600
+      const TIME_OUT = 600 // It should be the same transition time of the sections
       const body = document.querySelector('body')
-      let flagStar = true
+      const sectionsQty = document.querySelectorAll('section').length
+      const sectionStick = document.querySelector('.section-stick')
+
+      let startFlag = true
       let initialScroll = window.scrollY
-      let count = 1
-      let main = null
-      let next = null
+      let qty = 1,
+        main = null,
+        next = null
 
-      console.log('PANEL', count)
+      // Add child elements in .section-stick as number of sections exist
+      Array(sectionsQty)
+        .fill()
+        .forEach(() => {
+          sectionStick.innerHTML = sectionStick.innerHTML + '<div class="stick"></div>'
+        })
 
+      console.log('SLIDE', qty)
+
+      // Listening to scroll event
       window.onscroll = () => {
-        if (flagStar) {
-          const scrollDown = this.scrollY > initialScroll
+        if (startFlag) {
+          const scrollDown = this.scrollY >= initialScroll
+          const scrollLimit = qty >= 1 && qty <= sectionsQty
 
-          if (scrollDown && count < 4) {
-            body.style.overflow = 'hidden' // se bloquea el scroll
-            main = document.querySelector(`section.s${count}`)
-            next = document.querySelector(`section.s${count + 1}`)
+          // Verify that the scroll does not exceed the number of sections
+          if (scrollLimit) {
+            body.style.overflowY = 'hidden' // Lock el scroll
 
-            main.style.transform = `translateY(-100vh)`
-            next.style.transform = `translateY(0)`
+            if (scrollDown && qty < sectionsQty) {
+              main = document.querySelector(`section.s${qty}`)
+              next = document.querySelector(`section.s${qty + 1}`)
 
-            count++
-          } else if (!scrollDown && count > 1) {
-            body.style.overflow = 'hidden' // se bloquea el scroll
-            main = document.querySelector(`section.s${count - 1}`)
-            next = document.querySelector(`section.s${count}`)
+              main.style.transform = 'translateY(-100vh)'
+              next.style.transform = 'translateY(0)'
 
-            main.style.transform = `translateY(0)`
-            next.style.transform = `translateY(100vh)`
+              qty++
+            } else if (!scrollDown && qty > 1) {
+              main = document.querySelector(`section.s${qty - 1}`)
+              next = document.querySelector(`section.s${qty}`)
 
-            count--
+              main.style.transform = 'translateY(0)'
+              next.style.transform = 'translateY(100vh)'
+
+              qty--
+            }
+
+            // Scroll slidebar
+            const active = document.querySelector('.section-stick .stick.active')
+            active.style.top = (62 + 30) * (qty - 1) + 'px'
           }
 
-          console.log('PANEL', count)
+          console.log('SLIDE', qty)
 
+          // Wait for the scrolling to finish to reset the values
           setTimeout(() => {
             initialScroll = this.scrollY
-            flagStar = true
-            body.style.overflow = 'scroll' // se desbloquea el scroll
+            startFlag = true
+            body.style.overflowY = 'scroll' // Unlock scroll
           }, TIME_OUT)
 
-          flagStar = false
+          startFlag = false
         }
       }
     </script>
