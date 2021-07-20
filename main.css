@@ -31,7 +31,8 @@ body::-webkit-scrollbar {
 
 .layout {
   width: 100%;
-  height: calc(100vh * 2);
+  /* TODO: mejorar esto */
+  height: calc(100vh * 3);
   position: relative;
 }
 
@@ -91,6 +92,7 @@ body::-webkit-scrollbar {
   align-items: center;
   justify-content: center;
 
+  text-align: center;
   color: var(--color-white);
   font-size: 80px;
   font-weight: 600;
@@ -150,4 +152,35 @@ body::-webkit-scrollbar {
 
 #author svg {
   font-size: 40px;
+}
+
+/************************************* RESPONSIVE ***************************************/
+
+/* MOBILE */
+@media screen and (max-width: 576px) {
+  body::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+    -webkit-appearance: none;
+  }
+
+  .layout .section-stick {
+    right: 20px;
+    bottom: 20px;
+    transform: scale(0.7);
+  }
+
+  .layout section {
+    font-size: 40px;
+  }
+
+  #author {
+    left: 20px;
+    bottom: 20px;
+    font-size: 18px;
+  }
+
+  #author svg {
+    font-size: 30px;
+  }
 }
