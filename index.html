@@ -86,7 +86,7 @@
               qty--
             }
 
-            // Scroll slidebar
+            // Scroll progressbar
             const active = document.querySelector('.section-stick .stick.active')
             active.style.top = (62 + 30) * (qty - 1) + 'px'
           }
@@ -102,6 +102,9 @@
 
           startFlag = false
         }
+
+        // Keep scrollbar in the middle of the viewport
+        window.scroll(0, window.screen.height)
       }
     </script>
   </body>
