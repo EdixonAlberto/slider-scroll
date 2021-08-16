@@ -1,6 +1,6 @@
 :root {
   --color-white: #fff;
-  --time-animation: 0.6s;
+  --time-animation: 0.7s;
 }
 
 @keyframes pulse {
@@ -46,7 +46,6 @@ body::-webkit-scrollbar {
 
   display: flex;
   flex-direction: column;
-  row-gap: 30px;
   align-items: center;
   justify-content: flex-start;
 
@@ -67,6 +66,10 @@ body::-webkit-scrollbar {
 
   background-color: rgba(255, 255, 255, 0.4);
   transition: all var(--time-animation) ease-in-out;
+}
+
+.layout .section-stick .stick:not(:last-child) {
+  margin-bottom: 30px;
 }
 
 .layout .section-stick .active {
@@ -105,8 +108,11 @@ body::-webkit-scrollbar {
 .layout section .home {
   display: flex;
   flex-direction: column;
-  row-gap: 45px;
   align-items: center;
+}
+
+.layout section .home span {
+  margin-bottom: 45px;
 }
 
 .layout section .home svg {
@@ -141,7 +147,6 @@ body::-webkit-scrollbar {
   left: 40px;
 
   display: flex;
-  column-gap: 10px;
   align-items: center;
 
   color: var(--color-white);
@@ -151,6 +156,7 @@ body::-webkit-scrollbar {
 
 #author svg {
   font-size: 40px;
+  margin-right: 10px;
 }
 
 /************************************* RESPONSIVE ***************************************/
