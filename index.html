@@ -69,7 +69,8 @@
       window.onscroll = () => {
         if (startFlag) {
           const scrollDown = this.scrollY >= initialScroll
-          const scrollLimit = qty >= 1 && qty <= sectionsQty
+          // TODO: crear una constante para sectionsQty + 1
+          const scrollLimit = qty >= 1 && qty <= sectionsQty + 1
 
           // Verify that the scroll does not exceed the number of sections
           if (scrollLimit) {
@@ -84,24 +85,26 @@
 
               qty++
             } else if (!scrollDown && qty > 1) {
-              main = document.querySelector(`section.s${qty - 1}`)
-              next = document.querySelector(`section.s${qty}`)
+              if (qty !== sectionsQty + 1) {
+                main = document.querySelector(`section.s${qty - 1}`)
+                next = document.querySelector(`section.s${qty}`)
 
-              main.style.top = '0'
-              next.style.top = '100vh'
+                main.style.top = '0'
+                next.style.top = '100vh'
+              } else body.classList.remove('end')
 
               qty--
-
-              body.classList.remove('end')
             } else {
               // Mark the end of the slider on the body
               body.classList.add('end')
-              body.style.overflowY = 'scroll' // Unlock scroll
+              qty++
             }
 
             // Scroll progressbar
-            const active = document.querySelector('.section-stick .stick.active')
-            active.style.top = (62 + 30) * (qty - 1) + 'px'
+            if (qty !== sectionsQty + 1) {
+              const active = document.querySelector('.section-stick .stick.active')
+              active.style.top = (62 + 30) * (qty - 1) + 'px'
+            }
           }
 
           console.log('SLIDE', qty)

@@ -161,14 +161,14 @@ footer {
   width: 100%;
   height: var(--height-footer);
 
-  position: absolute;
-  bottom: calc(-100vh - var(--height-footer));
+  position: fixed;
+  bottom: calc(var(--height-footer) * -1);
 
   background: var(--color-black);
   color: var(--color-white);
   font-size: 40px;
 
-  transition: all 1s ease-in-out;
+  transition: all var(--time-animation) ease-in-out;
   z-index: 0;
 }
 
