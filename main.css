@@ -1,6 +1,8 @@
 :root {
+  --color-black: #000;
   --color-white: #fff;
   --time-animation: 0.7s;
+  --height-footer: 357px;
 }
 
 @keyframes pulse {
@@ -23,6 +25,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background: #000;
   overflow: hidden scroll;
   -ms-overflow-style: none;
 }
@@ -86,9 +89,10 @@ body::-webkit-scrollbar {
   height: 100vh;
 
   position: fixed;
-  top: 0;
+  top: 100vh;
   left: 0;
   right: 0;
+  bottom: 0;
 
   display: flex;
   align-items: center;
@@ -99,10 +103,8 @@ body::-webkit-scrollbar {
   font-size: 80px;
   font-weight: 600;
 
-  transform: translateY(100vh);
   transition: all var(--time-animation) ease-in-out;
-
-  z-index: 0;
+  z-index: 1;
 }
 
 .layout section .home {
@@ -120,24 +122,20 @@ body::-webkit-scrollbar {
 }
 
 .layout .s1 {
+  top: 0;
   background-color: #4d2536;
-  transform: translateY(0);
-  z-index: 4;
 }
 
 .layout .s2 {
   background-color: #02486b;
-  z-index: 3;
 }
 
 .layout .s3 {
   background-color: #171716;
-  z-index: 2;
 }
 
 .layout .s4 {
   background-color: #154621;
-  z-index: 1;
 }
 
 #author {
@@ -157,6 +155,40 @@ body::-webkit-scrollbar {
 #author svg {
   font-size: 40px;
   margin-right: 10px;
+}
+
+footer {
+  width: 100%;
+  height: var(--height-footer);
+
+  position: absolute;
+  bottom: calc(-100vh - var(--height-footer));
+
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: 40px;
+
+  transition: all 1s ease-in-out;
+  z-index: 0;
+}
+
+footer h2 {
+  margin: auto;
+  text-align: center;
+  line-height: var(--height-footer);
+}
+
+body.end .layout {
+  height: calc(100vh + 1px);
+}
+
+/* TODO: conseguir una mejor solucion para esto */
+body.end .s4 {
+  top: calc(var(--height-footer) * -1) !important;
+}
+
+body.end footer {
+  bottom: 0;
 }
 
 /************************************* RESPONSIVE ***************************************/

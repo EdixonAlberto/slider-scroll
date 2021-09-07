@@ -37,9 +37,14 @@
       </a>
     </div>
 
+    <footer>
+      <h2>Footer</h2>
+    </footer>
+
     <script>
       const TIME_OUT = 1200 // It should be the same transition time of the sections
       const body = document.querySelector('body')
+      const layout = document.querySelector('.layout')
       const sectionsQty = document.querySelectorAll('section').length
       const sectionStick = document.querySelector('.section-stick')
 
@@ -48,6 +53,8 @@
       let qty = 1,
         main = null,
         next = null
+
+      let end, footer
 
       // Add child elements in .section-stick as number of sections exist
       Array(sectionsQty)
@@ -72,18 +79,24 @@
               main = document.querySelector(`section.s${qty}`)
               next = document.querySelector(`section.s${qty + 1}`)
 
-              main.style.transform = 'translateY(-100vh)'
-              next.style.transform = 'translateY(0)'
+              main.style.top = '-100vh'
+              next.style.top = '0'
 
               qty++
             } else if (!scrollDown && qty > 1) {
               main = document.querySelector(`section.s${qty - 1}`)
               next = document.querySelector(`section.s${qty}`)
 
-              main.style.transform = 'translateY(0)'
-              next.style.transform = 'translateY(100vh)'
+              main.style.top = '0'
+              next.style.top = '100vh'
 
               qty--
+
+              body.classList.remove('end')
+            } else {
+              // Mark the end of the slider on the body
+              body.classList.add('end')
+              body.style.overflowY = 'scroll' // Unlock scroll
             }
 
             // Scroll progressbar
